@@ -54,7 +54,8 @@ mkdir -p package
 cd package
 mkdir -p usr/local/bin/
 mkdir -p var/lib/deqs
-mkdir -p var/lib/mobilecoind/ledger-db
+mkdir -p var/lib/mobilecoind
+# Note: Don't create mobilecoind/ledger-db, we want the process to do that
 mkdir -p var/lib/mobilecoind/watcher-db
 mkdir -p var/lib/mobilecoind/mobilecoind-db
 mkdir -p etc/supervisor/conf.d/
