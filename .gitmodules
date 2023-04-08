@@ -1,6 +1,3 @@
 [submodule "deqs"]
 	path = deqs
 	url = git@github.com:mobilecoinofficial/deqs.git
-[submodule "deqs-demo"]
-	path = deqs-demo
-	url = git@github.com:wjuan-mob/deqs-demo.git
