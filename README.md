@@ -10,22 +10,24 @@ I used [Amazon Lightsail](https://aws.amazon.com/free/compute/lightsail/?trk=564
 
 I configured a machine with OS-only and selected Ubuntu 22.04.
 
-Then, get a prompt in the container. You will need to install supervisord
+Then, get a prompt in the container. You will need to install supervisord.
 
 ```
-sudo apt-get update && sudo apt-get install supervisor
+sudo apt-get update && sudo apt-get install supervisor jq
 ```
 
-You can use wget to fetch the pre-created package and install it with `tar`.
+You can use `wget` to fetch the pre-created package and install it with `tar`.
+(Below we have a one-liner using `jq` that finds and fetches the latest release.)
 
 ```
 sudo su
 cd /
-wget https://github.com/cbeck88/deqs-demo-package/releases/download/v0.2/package.tar.gz
+curl -s https://api.github.com/repos/cbeck88/deqs-demo-package/releases/latest | jq -r .assets[0].browser_download_url | wget -i -
 tar -xzvf package.tar.gz
 ```
 
-Then, run `supervisorctl`. You can use `status` and `reload` to start the services.
+Then, run `supervisorctl`. You can use `help` to see available commands.
+You can use `reload` to make it load all the configs you installed and start the services.
 
 To monitor the services using `supervisorctl`, you can use the commands `status` and `tail -f mobilecoind` or `tail -f deqs` to look at logs.
 You can also `stop` and `start` the services using `supervisorctl`.
@@ -48,7 +50,11 @@ If you have a static ip, you can set up an A record in DNS if you like.
 
 ## Testing that it is working
 
-You can go to the deqs repository (or submodule of this repo) and run the test-cli
+You can go to the deqs repository (or submodule of this repo) and run the test-cli.
+
+```
+./deqs-test-cli get-quotes --deqs-uri insecure-deqs://123.456.789.000
+```
 
 ## Building the package
 
