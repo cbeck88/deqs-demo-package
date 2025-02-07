@@ -48,6 +48,17 @@ if [ ! -f "$ROOT/deqs/target/release/deqs-server" ]; then
     exit 1
 fi
 
+if [ "$NETWORK" ~= "prod" ]; then
+    MOBILECOIND_CONF="$ROOT/conf/mobilecoind.conf"
+    PACKAGE_NAME=package_mainnet.tar.gz
+else
+    MOBILECOIND_CONF="$ROOT/conf/mobilecoind-testnet.conf"
+    PACKAGE_NAME=package_testnet.tar.gz
+fi
+echo "NETWORK=$NETWORK"
+echo "PACKAGE_NAME=$PACKAGE_NAME"
+echo "Using MOBILECOIND_CONF=$MOBILECOIND_CONF"
+
 cd /tmp
 rm -rf package
 mkdir -p package
@@ -66,7 +77,7 @@ cd package
 
 cp -f "$ROOT/deqs/mobilecoin/target/release/mobilecoind" usr/local/bin/
 chmod 755 usr/local/bin/mobilecoind
-cp -f "$ROOT/conf/mobilecoind.conf" etc/supervisor/conf.d/mobilecoind.conf
+cp -f "$MOBILECOIND_CONF" etc/supervisor/conf.d/mobilecoind.conf
 chmod 644 etc/supervisor/conf.d/mobilecoind.conf
 
 cp -f "$ROOT/deqs/target/release/deqs-server" usr/local/bin/
@@ -76,5 +87,6 @@ chmod 644 etc/supervisor/conf.d/deqs.conf
 
 cd ..
 tar cvfz "package.tar.gz" --transform "s|^package||" package
-mv package.tar.gz "$ROOT/"
+mv package.tar.gz "$ROOT/$PACKAGE_NAME"
 rm -rf package
+echo "Produced $PACKAGE_NAME successfully."
