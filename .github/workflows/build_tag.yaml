@@ -33,7 +33,7 @@ jobs:
           IAS_MODE: PROD
         run: |
           ./build_rust.sh
-          ./build_package.sh
+          ./make_package.sh
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
