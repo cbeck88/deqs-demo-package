@@ -23,6 +23,9 @@ jobs:
         with:
           submodules: recursive
 
+      - name: Install Protoc
+        uses: arduino/setup-protoc@v3
+          
       - name: Build rust and package
         env:
           NETWORK: ${{ matrix.network }}.mobilecoin.com
