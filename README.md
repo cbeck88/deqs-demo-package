@@ -16,7 +16,7 @@ I use the following startup script:
 apt update && apt install supervisor jq wget -y
 
 cd /
-curl -s https://api.github.com/repos/cbeck88/deqs-demo-package/releases/latest | jq -r '.assets[] | select(.name=="package-mainnet.tar.gz") | .browser_download_url' | wget -i -
+curl -s https://api.github.com/repos/cbeck88/deqs-demo-package/releases/latest | jq -r '.assets[] | select(.name=="package_mainnet.tar.gz") | .browser_download_url' | wget -i -
 tar -xzvf package-mainnet.tar.gz
 supervisorctl reload
 ```
