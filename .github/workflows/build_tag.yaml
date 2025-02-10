@@ -41,4 +41,5 @@ jobs:
           name: "${{ matrix.network }}-package"
           path: package_*.tar.gz
           if-no-files-found: error
+          compression-level: 0
 

@@ -48,7 +48,7 @@ if [ ! -f "$ROOT/deqs/target/release/deqs-server" ]; then
     exit 1
 fi
 
-if [ "$NETWORK" ~= "prod" ]; then
+if [[ "$NETWORK" == "prod"* ]; then
     MOBILECOIND_CONF="$ROOT/conf/mobilecoind.conf"
     PACKAGE_NAME=package_mainnet.tar.gz
 else
