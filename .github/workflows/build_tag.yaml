@@ -1,0 +1,37 @@
+name: build_tag
+
+on:
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build_package:
+    runs-on: ["ubuntu-latest"]
+    strategy:
+      matrix:
+        network: ["test", "prod"]
+    steps:
+      - name: Show ref
+        run: |
+          echo "Ref is ${{ github.ref_name }}"
+
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Build rust and package
+        env:
+          NETWORK=${{ matrix.network }}.mobilecoin.com
+        run: |
+          ./build_rust.sh
+          ./build_package.sh
+
+      - name: Upload artifact
+        uses: @actions/upload-artifact
+          name: ${{ matrix.network }} package
+          path: package_*.tar.gz
+
