@@ -32,6 +32,6 @@ jobs:
 
       - name: Upload artifact
         uses: actions/upload-artifact
-          name: ${{ matrix.network }}-package
+          name: "${{ matrix.network }}-package"
           path: package_*.tar.gz
 
