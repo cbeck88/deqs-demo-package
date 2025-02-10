@@ -31,7 +31,7 @@ jobs:
           ./build_package.sh
 
       - name: Upload artifact
-        uses: actions/upload-artifact
+        uses: actions/upload-artifact@v4
         with:
           name: "${{ matrix.network }}-package"
           path: package_*.tar.gz
