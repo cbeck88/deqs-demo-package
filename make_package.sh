@@ -36,7 +36,7 @@ if [ "$#" -ne 0 ]; then
 fi
 
 
-ROOT=`git rev-parse --show-toplevel`
+ROOT=$(git rev-parse --show-toplevel)
 
 if [ ! -f "$ROOT/deqs/mobilecoin/target/release/mobilecoind" ]; then
     echo "deqs/mobilecoin/target/release/mobilecoind not found: You must build in release mode before packaging"
@@ -48,7 +48,7 @@ if [ ! -f "$ROOT/deqs/target/release/deqs-server" ]; then
     exit 1
 fi
 
-if [[ "$NETWORK" == "prod"* ]; then
+if [[ "$NETWORK" == "prod"* ]]; then
     MOBILECOIND_CONF="$ROOT/conf/mobilecoind.conf"
     PACKAGE_NAME=package_mainnet.tar.gz
 else
