@@ -1,7 +1,9 @@
 name: build_tag
 
 on:
-  workflow_dispatch:
+  push:
+    tags:
+      - '*'
 
 concurrency:
   group: ${{ github.ref }}
